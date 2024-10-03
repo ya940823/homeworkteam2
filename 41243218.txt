@@ -1,0 +1,57 @@
+#include <QApplication>
+#include <QTabWidget>
+#include <QVBoxLayout>
+#include <QWidget>
+#include <QLabel>
+
+class MainWindow : public QWidget {
+public:
+    MainWindow() {
+        QTabWidget *tabWidget = new QTabWidget(this);
+
+        
+        captainLabel = new QLabel("隊長姓名:林承志\n學號: 41243218\n隊員姓名: 黃培峰\n學號: 41243145\n隊員姓名: 黃境安\n學號: 41243146\n隊員姓名: 陳有臨\n學號: 50915133\n");
+        tabWidget->addTab(createCaptainTab(), "隊長頁");
+
+       
+        tabWidget->addTab(createMemberTab("隊員 1"), "隊員 1");
+        tabWidget->addTab(createMemberTab("隊員 2"), "隊員 2");
+        tabWidget->addTab(createMemberTab("隊員 3"), "隊員 3");
+
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        mainLayout->addWidget(tabWidget);
+        setLayout(mainLayout);
+    }
+
+private:
+    QLabel *captainLabel; // Store captain label for access in member tabs
+
+    // Function to create the Captain tab
+    QWidget* createCaptainTab() {
+        QWidget *tab = new QWidget();
+        QVBoxLayout *layout = new QVBoxLayout;
+        layout->addWidget(captainLabel);
+        tab->setLayout(layout);
+        return tab;
+    }
+
+
+    QWidget* createMemberTab(const QString& labelText) {
+        QWidget *tab = new QWidget();
+        QVBoxLayout *layout = new QVBoxLayout;
+
+        QLabel *label = new QLabel(labelText);
+        layout->addWidget(label);
+
+        tab->setLayout(layout);
+        return tab;
+    }
+};
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    MainWindow window;
+    window.resize(400, 300);
+    window.show();
+    return app.exec();
+}
