@@ -65,7 +65,20 @@ private:
             });
             layout->addWidget(fontChangeButton);
         }
-        
+          if (fileButton) {
+            QPushButton *fileSelectButton = new QPushButton("選擇檔案");
+            QLabel *member3Label = new QLabel("選擇的文件: 無"); // Create label for member 3
+            layout->addWidget(member3Label); // Add to the layout for member 3 tab
+
+            connect(fileSelectButton, &QPushButton::clicked, [=]() {
+                QString filePath = QFileDialog::getOpenFileName(this, "選擇檔案");
+                if (!filePath.isEmpty()) {
+                    member3Label->setText("選擇的文件: " + filePath); // Show selected file in member 3 label
+                }
+            });
+            layout->addWidget(fileSelectButton);
+        }
+
         
 
         tab->setLayout(layout);
